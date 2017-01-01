@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'open3'
 
-RSpec.describe 'Integration' do
+RSpec.describe 'Integration: Output to STDOUT' do
   it 'reads from STDIN, prints corrected source to STDOUT' do
     input = get_fixture(:basic_input)
     output = get_fixture(:basic_output)
@@ -43,35 +43,5 @@ RSpec.describe 'Integration' do
       input1_file.unlink
       input2_file.unlink
     end
-  end
-
-  it 'does not run Lint/Debugger cop' do
-    input = get_fixture(:skip_lint_debugger_input)
-    output = get_fixture(:skip_lint_debugger_output)
-
-    stdout, status = Open3.capture2(fmt_bin, stdin_data: input)
-
-    expect(stdout).to eq(output)
-    expect(status).to eq(0)
-  end
-
-  it 'does not run Lint/UnusedMethodArgument cop' do
-    input = get_fixture(:skip_lint_unused_method_argument_input)
-    output = get_fixture(:skip_lint_unused_method_argument_output)
-
-    stdout, status = Open3.capture2(fmt_bin, stdin_data: input)
-
-    expect(stdout).to eq(output)
-    expect(status).to eq(0)
-  end
-
-  it 'does not run Lint/UnusedBlockArgument cop' do
-    input = get_fixture(:skip_lint_unused_block_argument_input)
-    output = get_fixture(:skip_lint_unused_block_argument_output)
-
-    stdout, status = Open3.capture2(fmt_bin, stdin_data: input)
-
-    expect(stdout).to eq(output)
-    expect(status).to eq(0)
   end
 end

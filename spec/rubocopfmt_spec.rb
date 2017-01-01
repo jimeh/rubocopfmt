@@ -1,11 +1,7 @@
-require "spec_helper"
+require 'spec_helper'
 
-describe Rubocopfmt do
-  it "has a version number" do
-    expect(Rubocopfmt::VERSION).not_to be nil
-  end
-
-  it "does something useful" do
-    expect(false).to eq(true)
+describe RuboCopFMT do
+  it 'has a version number' do
+    expect(RuboCopFMT::VERSION).not_to be nil
   end
 end

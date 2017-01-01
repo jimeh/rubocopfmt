@@ -1,5 +1,6 @@
-require "rubocopfmt/version"
+require 'rubocopfmt/cli'
+require 'rubocopfmt/version'
 
-module Rubocopfmt
+module RuboCopFMT
   # Your code goes here...
 end

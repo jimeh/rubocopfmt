@@ -18,6 +18,8 @@ module RuboCopFMT
     def run
       if @options.list
         print_corrected_list
+      elsif @options.write
+        write_corrected_source
       else
         print_corrected_source
       end
@@ -43,6 +45,15 @@ module RuboCopFMT
       auto_correct_candidates
 
       candidates.each { |c| puts c.path if c.corrected? }
+    end
+
+    def write_corrected_source
+      require_real_files('--write')
+      auto_correct_candidates
+
+      candidates.each do |candidate|
+        File.write(candidate.path, candidate.output) if candidate.corrected?
+      end
     end
 
     def print_corrected_source

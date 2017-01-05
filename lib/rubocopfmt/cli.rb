@@ -16,15 +16,40 @@ module RuboCopFMT
     end
 
     def run
-      candidates.map(&:auto_correct)
-      candidates.each do |candidate|
-        print candidate.output
+      if @options.list
+        print_corrected_list
+      else
+        print_corrected_source
       end
 
       0
     end
 
     private
+
+    def auto_correct_candidates
+      candidates.map(&:auto_correct)
+    end
+
+    def require_real_files(flag)
+      return unless @options.files.empty?
+
+      $stderr.puts "ERROR: To use #{flag} you must specify one or more files"
+      exit 1
+    end
+
+    def print_corrected_list
+      require_real_files('--list')
+      auto_correct_candidates
+
+      candidates.each { |c| puts c.path if c.corrected? }
+    end
+
+    def print_corrected_source
+      auto_correct_candidates
+
+      candidates.each { |candidate| print candidate.output }
+    end
 
     def candidates
       return @candidates if @candidates

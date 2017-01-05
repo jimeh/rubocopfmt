@@ -3,8 +3,8 @@ require 'open3'
 
 RSpec.describe 'Integration: Output to STDOUT' do
   it 'reads from STDIN, prints corrected source to STDOUT' do
-    input = get_fixture(:basic_input)
-    output = get_fixture(:basic_output)
+    input = get_fixture(:basic1_input)
+    output = get_fixture(:basic1_output)
 
     stdout, status = Open3.capture2(fmt_bin, stdin_data: input)
 
@@ -13,8 +13,8 @@ RSpec.describe 'Integration: Output to STDOUT' do
   end
 
   it 'reads from file, prints corrected source to STDOUT' do
-    input_file = get_fixture_file(:basic_input)
-    output = get_fixture(:basic_output)
+    input_file = get_fixture_file(:basic1_input)
+    output = get_fixture(:basic1_output)
 
     begin
       stdout, status = Open3.capture2("#{fmt_bin} \"#{input_file.path}\"")
@@ -27,10 +27,10 @@ RSpec.describe 'Integration: Output to STDOUT' do
   end
 
   it 'reads from multiple files, prints corrected source to STDOUT for all' do
-    input1_file = get_fixture_file(:basic_input)
-    output1 = get_fixture(:basic_output)
-    input2_file = get_fixture_file(:skip_lint_debugger_input)
-    output2 = get_fixture(:skip_lint_debugger_output)
+    input1_file = get_fixture_file(:basic1_input)
+    output1 = get_fixture(:basic1_output)
+    input2_file = get_fixture_file(:basic2_input)
+    output2 = get_fixture(:basic2_output)
 
     begin
       stdout, status = Open3.capture2(

@@ -16,8 +16,6 @@ module RuboCopFMT
 
       @corrector = AutoCorrector.new(input)
       @output = @corrector.correct
-
-      corrected?
     end
 
     def corrected?

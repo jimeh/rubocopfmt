@@ -7,16 +7,16 @@ RSpec.describe 'Integration: Version output' do
   end
 
   it 'prints version information when given -v flag' do
-    stdout, status = Open3.capture2("#{fmt_bin} -v")
+    out, s = Open3.capture2("#{fmt_bin} -v")
 
-    expect(status).to eq(0)
-    expect(stdout).to eq(expected_version)
+    expect(s.exitstatus).to eq(0)
+    expect(out).to eq(expected_version)
   end
 
   it 'prints version information when given --version flag' do
-    stdout, status = Open3.capture2("#{fmt_bin} --version")
+    out, s = Open3.capture2("#{fmt_bin} --version")
 
-    expect(status).to eq(0)
-    expect(stdout).to eq(expected_version)
+    expect(s.exitstatus).to eq(0)
+    expect(out).to eq(expected_version)
   end
 end

@@ -17,16 +17,16 @@ RSpec.describe 'Integration: Help output' do
   end
 
   it 'prints help information when given -h flag' do
-    stdout, status = Open3.capture2("#{fmt_bin} -h")
+    out, s = Open3.capture2("#{fmt_bin} -h")
 
-    expect(status).to eq(0)
-    expect(stdout).to eq(expected_help)
+    expect(s.exitstatus).to eq(0)
+    expect(out).to eq(expected_help)
   end
 
   it 'prints help information when given --help flag' do
-    stdout, status = Open3.capture2("#{fmt_bin} --help")
+    out, s = Open3.capture2("#{fmt_bin} --help")
 
-    expect(status).to eq(0)
-    expect(stdout).to eq(expected_help)
+    expect(s.exitstatus).to eq(0)
+    expect(out).to eq(expected_help)
   end
 end

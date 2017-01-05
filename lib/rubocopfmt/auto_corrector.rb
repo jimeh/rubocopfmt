@@ -10,7 +10,6 @@ module RuboCopFMT
     ].freeze
 
     RUBOCOP_OPTS = [
-      '--stdin',
       '--auto-correct',
       '--cache', 'false',
       '--format', 'RuboCopFMT::Formatter',

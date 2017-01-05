@@ -19,8 +19,10 @@ module RuboCopFMT
     end
 
     def corrected?
-      return false if @corrector.nil?
-      !@corrector.warnings.empty? || !@corrector.errors.empty?
+      return @corrected unless @corrected.nil?
+      return false if @output.nil?
+
+      @corrected = (@input != @output)
     end
   end
 end

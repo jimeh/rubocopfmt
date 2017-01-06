@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ['Jim Myhrberg']
   spec.email       = ['contact@jimeh.me']
 
-  spec.summary     = "Format Ruby code via Rubocop's --auto-correct feature"
-  spec.description = "Format Ruby code via Rubocop's --auto-correct feature"
+  spec.summary     = 'Easy formatting of Ruby code using RuboCop'
+  spec.description = 'Easy formatting of Ruby code using RuboCop'
   spec.homepage    = 'https://github.com/jimeh/rubocopfmt'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the

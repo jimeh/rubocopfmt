@@ -1,6 +1,6 @@
 # rubocopfmt
 
-For easy formatting of Ruby code
+Easy formatting of Ruby code
 using [RuboCop](https://github.com/bbatsov/rubocop). Analogous
 to [`gofmt`](https://golang.org/cmd/gofmt/).
 

@@ -12,7 +12,8 @@ class String
 end
 
 def get_fixture_path(name)
-  File.expand_path("../integration/fixtures/#{name}.rb", __FILE__)
+  dir = File.expand_path('../integration/fixtures', __FILE__)
+  Dir["#{dir}/*#{name}*.rb", "#{dir}/*#{name}*"].first
 end
 
 def get_fixture_file(name)

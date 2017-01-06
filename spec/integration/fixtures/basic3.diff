@@ -1,0 +1,10 @@
+@@ -1,8 +1,7 @@
+ class Foo
+   BAR = 'hello'.freeze
+ 
+-  def initialize()
+-  end
++  def initialize; end
+ 
+   def say_something_useful
+     puts 'nope'

@@ -7,7 +7,7 @@ to [`gofmt`](https://golang.org/cmd/gofmt/).
 ## Installation
 
 ```
-gem install rubocopfmt
+gem install rubocopfmt --pre
 ```
 
 ## Usage

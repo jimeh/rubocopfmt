@@ -1,7 +1,7 @@
 require 'rubocopfmt/auto_corrector'
 
 module RuboCopFMT
-  class Candidate
+  class Source
     attr_reader :path
     attr_reader :input
     attr_reader :output

@@ -1,7 +1,7 @@
 require 'rubocop'
 
-require 'rubocopfmt/canidate'
 require 'rubocopfmt/errors'
+require 'rubocopfmt/source'
 
 module RuboCopFMT
   class CLI
@@ -29,8 +29,8 @@ module RuboCopFMT
 
     private
 
-    def auto_correct_candidates
-      candidates.map(&:auto_correct)
+    def auto_correct_sources
+      sources.map(&:auto_correct)
     end
 
     def require_real_files(flag)
@@ -42,47 +42,47 @@ module RuboCopFMT
 
     def print_corrected_list
       require_real_files('--list')
-      auto_correct_candidates
+      auto_correct_sources
 
-      candidates.each { |c| puts c.path if c.corrected? }
+      sources.each { |c| puts c.path if c.corrected? }
     end
 
     def write_corrected_source
       require_real_files('--write')
-      auto_correct_candidates
+      auto_correct_sources
 
-      candidates.each do |candidate|
-        File.write(candidate.path, candidate.output) if candidate.corrected?
+      sources.each do |source|
+        File.write(source.path, source.output) if source.corrected?
       end
     end
 
     def print_corrected_source
-      auto_correct_candidates
+      auto_correct_sources
 
-      candidates.each { |candidate| print candidate.output }
+      sources.each { |source| print source.output }
     end
 
-    def candidates
-      return @candidates if @candidates
+    def sources
+      return @sources if @sources
 
       if options.files.empty?
-        @candidates = [new_candidate_from_stdin]
+        @sources = [new_source_from_stdin]
       else
-        @candidates = options.files.map do |path|
-          new_candidate_from_file(path)
+        @sources = options.files.map do |path|
+          new_source_from_file(path)
         end
       end
     end
 
-    def new_candidate_from_stdin
-      Candidate.new($stdin.binmode.read)
+    def new_source_from_stdin
+      Source.new($stdin.binmode.read)
     end
 
-    def new_candidate_from_file(path)
+    def new_source_from_file(path)
       raise FileNotFound, "File not found: #{path}" unless File.exist?(path)
 
       source = File.read(path, mode: 'rb')
-      Candidate.new(source, path)
+      Source.new(source, path)
     end
   end
 end

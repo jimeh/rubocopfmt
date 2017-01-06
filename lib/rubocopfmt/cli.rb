@@ -1,3 +1,4 @@
+require 'diffy'
 require 'rubocop'
 
 require 'rubocopfmt/errors'
@@ -18,6 +19,8 @@ module RuboCopFMT
     def run
       if @options.list
         print_corrected_list
+      elsif @options.diff
+        print_diff_of_corrections
       elsif @options.write
         write_corrected_source
       else
@@ -47,6 +50,16 @@ module RuboCopFMT
       sources.each { |c| puts c.path if c.corrected? }
     end
 
+    def print_diff_of_corrections
+      auto_correct_sources
+
+      sources.each do |source|
+        next unless source.corrected?
+        puts "diff #{source.path} rubocopfmt/#{source.path}" if source.path
+        puts diff_source(source)
+      end
+    end
+
     def write_corrected_source
       require_real_files('--write')
       auto_correct_sources
@@ -72,6 +85,16 @@ module RuboCopFMT
           new_source_from_file(path)
         end
       end
+    end
+
+    def diff_source(source)
+      diff = Diffy::Diff.new(
+        source.input, source.output,
+        include_diff_info: true,
+        diff: '-U 3'
+      )
+
+      diff.to_s(:text)
     end
 
     def new_source_from_stdin

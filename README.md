@@ -1,4 +1,4 @@
-# rubocopfmt
+# rubocopfmt [![Build Status](https://api.travis-ci.org/jimeh/rubocopfmt.svg)](https://travis-ci.org/jimeh/rubocopfmt)
 
 Easy formatting of Ruby code
 using [RuboCop](https://github.com/bbatsov/rubocop). Analogous

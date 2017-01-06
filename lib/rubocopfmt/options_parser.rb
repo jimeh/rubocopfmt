@@ -26,6 +26,8 @@ module RuboCopFMT
 
           opts.banner = 'Usage: rubocopfmt [options] [path ...]'
           opts.separator ''
+          opts.separator 'Reads from STDIN if no path is given.'
+          opts.separator ''
           opts.separator 'Options:'
 
           opts.on(

@@ -6,6 +6,8 @@ RSpec.describe 'Integration: Help output' do
     <<-EOF.undent
       Usage: rubocopfmt [options] [path ...]
 
+      Reads from STDIN if no path is given.
+
       Options:
           -d, --diff                       Display diffs instead of rewriting files.
           -l, --list                       List files whose formatting is incorrect.

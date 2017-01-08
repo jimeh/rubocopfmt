@@ -38,15 +38,25 @@ module RuboCopFMT
           opt :write, 'Write result to (source) file instead of STDOUT.'
           opt :stdin_file, 'Optionally provide file path when using STDIN.',
               short: 'F', type: :string
+          opt :diff_format, 'Display diffs using format: unified, rcs, context',
+              short: 'D', type: :string
           banner ''
 
           conflicts :diff, :list, :write
+          conflicts :diff_format, :list, :write
         end
 
-        options.diff = opts[:diff]
-        options.list = opts[:list]
-        options.write = opts[:write]
-        options.stdin_file = opts[:stdin_file]
+        if opts[:diff_format] && !Diff.valid_format?(opts[:diff_format])
+          Trollop.die :diff_format,
+                      "does not support \"#{opts[:diff_format]}\" format"
+        end
+
+        opts[:diff] = true if opts[:diff_format] && !opts[:diff]
+
+        opts.each do |k, v|
+          options.send("#{k}=", v) if options.respond_to?("#{k}=")
+        end
+
         options
       end
     end

@@ -34,6 +34,22 @@ module RuboCopFMT
       end
     end
 
+    describe 'diff_format option' do
+      it 'reader/writer methods' do
+        options = Options.new
+
+        options.diff_format = 'rcs'
+
+        expect(options.diff_format).to eq('rcs')
+      end
+
+      it 'defaults to nil' do
+        options = Options.new
+
+        expect(options.diff_format).to eq(nil)
+      end
+    end
+
     describe 'list option' do
       it 'reader/writer methods' do
         options = Options.new

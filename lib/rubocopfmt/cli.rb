@@ -1,5 +1,4 @@
-require 'diffy'
-
+require 'rubocopfmt/diff'
 require 'rubocopfmt/errors'
 require 'rubocopfmt/options_parser'
 require 'rubocopfmt/source'
@@ -90,13 +89,8 @@ module RuboCopFMT
     end
 
     def diff_source(source)
-      diff = Diffy::Diff.new(
-        source.input, source.output,
-        include_diff_info: true,
-        diff: '-U 3'
-      )
-
-      diff.to_s(:text)
+      diff = Diff.new(source)
+      diff.render(options.diff_format)
     end
 
     def new_source_from_stdin(path = nil)

@@ -3,6 +3,7 @@ require 'rubocopfmt/options_parser'
 module RuboCopFMT
   class Options
     attr_accessor :stdin_file
+    attr_accessor :diff_format
 
     def paths
       @paths.nil? ? [] : @paths

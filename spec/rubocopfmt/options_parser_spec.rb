@@ -49,6 +49,26 @@ module RuboCopFMT
         end
       end
 
+      describe 'diff_format option' do
+        it '--diff-format' do
+          options = Options.new
+
+          OptionsParser.parse(['--diff-format', 'rcs'], options)
+
+          expect(options.diff).to eq(true)
+          expect(options.diff_format).to eq('rcs')
+        end
+
+        it '-D' do
+          options = Options.new
+
+          OptionsParser.parse(['-D', 'rcs'], options)
+
+          expect(options.diff).to eq(true)
+          expect(options.diff_format).to eq('rcs')
+        end
+      end
+
       describe 'list option' do
         it '--list' do
           options = Options.new

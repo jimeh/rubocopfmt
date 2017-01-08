@@ -48,4 +48,44 @@ RSpec.describe 'Integration: Show diff of corrections' do
       end
     end
   end
+
+  ['-D', '--diff-format'].each do |flag|
+    it "Supports outputting diffs in Unified format using #{flag} flag" do
+      input = get_fixture(:basic3_input)
+      diff = get_fixture('basic3.unified.diff').strip
+
+      out, s = Open3.capture2("#{fmt_bin} #{flag} unified", stdin_data: input)
+      lines = out.split("\n")
+
+      expect(s.exitstatus).to eq(0)
+      expect(lines[0]).to match(/^\-\-\- .+diffy.+/)
+      expect(lines[1]).to match(/^\+\+\+ .+diffy.+/)
+      expect(lines[2..-1].join("\n")).to eq(diff)
+    end
+
+    it "Supports outputting diffs in RCS format using #{flag} flag" do
+      input = get_fixture(:basic3_input)
+      diff = get_fixture('basic3.rcs.diff')
+
+      out, s = Open3.capture2("#{fmt_bin} #{flag} rcs", stdin_data: input)
+
+      expect(s.exitstatus).to eq(0)
+      expect(out).to eq(diff)
+    end
+  end
+
+  ['-D', '--diff-format'].each do |flag|
+    it "Supports outputting diffs in Context format using #{flag} flag" do
+      input = get_fixture(:basic3_input)
+      diff = get_fixture('basic3.context.diff').strip
+
+      out, s = Open3.capture2("#{fmt_bin} #{flag} context", stdin_data: input)
+      lines = out.split("\n")
+
+      expect(s.exitstatus).to eq(0)
+      expect(lines[0]).to match(/^\*\*\* .+diffy.+/)
+      expect(lines[1]).to match(/^\-\-\- .+diffy.+/)
+      expect(lines[2..-1].join("\n")).to eq(diff)
+    end
+  end
 end

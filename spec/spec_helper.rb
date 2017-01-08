@@ -5,12 +5,6 @@ RSpec.configure do |config|
   config.order = :random
 end
 
-class String
-  def undent
-    gsub(/^.{#{slice(/^ +/).length}}/, '')
-  end
-end
-
 def get_fixture_path(name)
   dir = File.expand_path('../integration/fixtures', __FILE__)
   Dir["#{dir}/*#{name}*.rb", "#{dir}/*#{name}*"].first

@@ -32,10 +32,6 @@ module RuboCopFMT
 
     private
 
-    def auto_correct_sources
-      sources.map(&:auto_correct)
-    end
-
     def require_real_files(flag)
       return unless @options.paths.empty?
 
@@ -45,16 +41,14 @@ module RuboCopFMT
 
     def print_corrected_list
       require_real_files('--list')
-      auto_correct_sources
 
-      sources.each { |c| puts c.path if c.corrected? }
+      for_corrected_source do |source|
+        puts source.path
+      end
     end
 
     def print_diff_of_corrections
-      auto_correct_sources
-
-      sources.each do |source|
-        next unless source.corrected?
+      for_corrected_source do |source|
         puts "diff #{source.path} rubocopfmt/#{source.path}" if source.path
         puts diff_source(source)
       end
@@ -62,17 +56,16 @@ module RuboCopFMT
 
     def write_corrected_source
       require_real_files('--write')
-      auto_correct_sources
 
-      sources.each do |source|
-        File.write(source.path, source.output) if source.corrected?
+      for_corrected_source do |source|
+        File.write(source.path, source.output)
       end
     end
 
     def print_corrected_source
-      auto_correct_sources
-
-      sources.each { |source| print source.output }
+      for_corrected_source(skip_unchanged: false) do |source|
+        print source.output
+      end
     end
 
     def sources
@@ -84,6 +77,15 @@ module RuboCopFMT
         @sources = options.paths.map do |path|
           new_source_from_file(path)
         end
+      end
+    end
+
+    def for_corrected_source(skip_unchanged: true)
+      sources.each do |source|
+        source.auto_correct
+        next if skip_unchanged && !source.corrected?
+
+        yield(source)
       end
     end
 

@@ -1,4 +1,5 @@
-require 'rubocopfmt/options_parser'
+require 'rubocop'
+
 require 'rubocopfmt/formatter'
 
 module RuboCopFMT
@@ -25,7 +26,7 @@ module RuboCopFMT
     end
 
     def correct
-      Rainbow.enabled = false
+      Rainbow.enabled = false if defined?(Rainbow)
       @runner = RuboCop::Runner.new(options, config_store)
       @runner.run(paths)
       options[:stdin]

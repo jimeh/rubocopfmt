@@ -1,7 +1,7 @@
 require 'diffy'
-require 'rubocop'
 
 require 'rubocopfmt/errors'
+require 'rubocopfmt/options_parser'
 require 'rubocopfmt/source'
 
 module RuboCopFMT

@@ -4,17 +4,17 @@ module RuboCopFMT
   RSpec.describe OptionsParser do
     describe '#parse' do
       it 'does not modify input args array' do
-        args = ['--diff', '-l', 'foo.rb']
+        args = ['--diff', 'foo.rb']
 
         OptionsParser.parse(args)
 
-        expect(args).to eq(['--diff', '-l', 'foo.rb'])
+        expect(args).to eq(['--diff', 'foo.rb'])
       end
 
       describe 'paths option' do
         describe 'is set based on addtional arguments' do
           it 'when given a single additional argument' do
-            args = ['--diff', '-l', 'foo.rb']
+            args = ['--diff', 'foo.rb']
 
             options = OptionsParser.parse(args)
 
@@ -22,7 +22,7 @@ module RuboCopFMT
           end
 
           it 'when given multiple additional arguments' do
-            args = ['--diff', '-l', 'foo.rb', 'bar.rb', 'Gemfile']
+            args = ['--diff', 'foo.rb', 'bar.rb', 'Gemfile']
 
             options = OptionsParser.parse(args)
 

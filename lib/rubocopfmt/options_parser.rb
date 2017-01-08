@@ -1,6 +1,7 @@
-require 'optparse'
+require 'trollop'
 require 'rubocop'
 
+require 'rubocopfmt/core_ext/string'
 require 'rubocopfmt/options'
 require 'rubocopfmt/version'
 
@@ -20,45 +21,29 @@ module RuboCopFMT
       private
 
       def parse_flags(args, options)
-        parser = OptionParser.new do |opts|
-          opts.program_name = 'rubocopfmt'
-          opts.version = RuboCopFMT::VERSION
+        opts = Trollop.options(args) do
+          banner <<-EOF.undent
+            Usage: rubocopfmt [options] [path ...]
 
-          opts.banner = 'Usage: rubocopfmt [options] [path ...]'
-          opts.separator ''
-          opts.separator 'Reads from STDIN if no path is given.'
-          opts.separator ''
-          opts.separator 'Options:'
+            Reads from STDIN if no path is given.
 
-          opts.on(
-            '-d', '--diff',
-            'Display diffs instead of rewriting files.'
-          ) { |v| options.diff = v }
+            Options:
+          EOF
 
-          opts.on(
-            '-l', '--list',
-            'List files whose formatting is incorrect.'
-          ) { |v| options.list = v }
+          version "rubocopfmt #{RuboCopFMT::VERSION}" \
+                  " (rubocop #{RuboCop::Version::STRING})"
 
-          opts.on(
-            '-w', '--write',
-            'Write result to (source) file instead of STDOUT.'
-          ) { |v| options.write = v }
+          opt :diff, 'Display diffs instead of rewriting files.'
+          opt :list, 'List files whose formatting is incorrect.'
+          opt :write, 'Write result to (source) file instead of STDOUT.'
 
-          opts.separator ''
-
-          opts.on('-v', '--version', 'Show version.') do
-            puts "#{opts.program_name} #{opts.version}" \
-                 " (rubocop #{RuboCop::Version::STRING})"
-            exit
-          end
-
-          opts.on('-h', '--help', 'Show this message.') do
-            puts opts
-            exit
-          end
+          conflicts :diff, :list, :write
         end
-        parser.parse!(args)
+
+        options.diff = opts[:diff]
+        options.list = opts[:list]
+        options.write = opts[:write]
+        options
       end
     end
   end

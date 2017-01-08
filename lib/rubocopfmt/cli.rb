@@ -79,7 +79,7 @@ module RuboCopFMT
       return @sources if @sources
 
       if options.paths.empty?
-        @sources = [new_source_from_stdin]
+        @sources = [new_source_from_stdin(options.stdin_file)]
       else
         @sources = options.paths.map do |path|
           new_source_from_file(path)
@@ -97,8 +97,8 @@ module RuboCopFMT
       diff.to_s(:text)
     end
 
-    def new_source_from_stdin
-      Source.new($stdin.binmode.read)
+    def new_source_from_stdin(path = nil)
+      Source.new($stdin.binmode.read, path)
     end
 
     def new_source_from_file(path)

@@ -65,5 +65,21 @@ module RuboCopFMT
         expect(options.write).to eq(false)
       end
     end
+
+    describe 'stdin_file option' do
+      it 'reader/writer methods' do
+        options = Options.new
+
+        options.stdin_file = 'foo.rb'
+
+        expect(options.stdin_file).to eq('foo.rb')
+      end
+
+      it 'defaults to nil' do
+        options = Options.new
+
+        expect(options.stdin_file).to eq(nil)
+      end
+    end
   end
 end

@@ -36,6 +36,8 @@ module RuboCopFMT
           opt :diff, 'Display diffs instead of rewriting files.'
           opt :list, 'List files whose formatting is incorrect.'
           opt :write, 'Write result to (source) file instead of STDOUT.'
+          opt :stdin_file, 'Optionally provide file path when using STDIN.',
+              short: 'f', type: :string
 
           conflicts :diff, :list, :write
         end
@@ -43,6 +45,7 @@ module RuboCopFMT
         options.diff = opts[:diff]
         options.list = opts[:list]
         options.write = opts[:write]
+        options.stdin_file = opts[:stdin_file]
         options
       end
     end

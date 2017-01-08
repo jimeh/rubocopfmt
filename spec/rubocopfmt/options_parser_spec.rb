@@ -84,6 +84,24 @@ module RuboCopFMT
           expect(options.write).to eq(true)
         end
       end
+
+      describe 'stdin_file option' do
+        it '--stdin-file' do
+          options = Options.new
+
+          OptionsParser.parse(['--stdin-file', 'foo.rb'], options)
+
+          expect(options.stdin_file).to eq('foo.rb')
+        end
+
+        it '-f' do
+          options = Options.new
+
+          OptionsParser.parse(['-f', 'foo.rb'], options)
+
+          expect(options.stdin_file).to eq('foo.rb')
+        end
+      end
     end
   end
 end

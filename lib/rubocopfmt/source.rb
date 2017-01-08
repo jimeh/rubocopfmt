@@ -14,7 +14,7 @@ module RuboCopFMT
     def auto_correct
       return unless output.nil?
 
-      @corrector = AutoCorrector.new(input)
+      @corrector = AutoCorrector.new(input, path)
       @output = @corrector.correct
     end
 

@@ -9,42 +9,59 @@ module RuboCopFMT
       'Lint/UnusedBlockArgument'
     ].freeze
 
-    RUBOCOP_OPTS = [
+    RUBOCOP_ARGV = [
       '--auto-correct',
       '--cache', 'false',
       '--format', 'RuboCopFMT::Formatter',
-      '--except', DISABLED_COPS.join(','),
-      'fake.rb'
+      '--except', DISABLED_COPS.join(',')
     ].freeze
 
     attr_reader :source
     attr_reader :runner
 
-    def initialize(source)
+    def initialize(source, path = nil)
       @source = source
+      @path = path
     end
 
     def correct
-      options, paths = RuboCop::Options.new.parse(RUBOCOP_OPTS)
-      config_store = RuboCop::ConfigStore.new
-
-      options[:stdin] = source
-
       Rainbow.enabled = false
-      config_store.options_config = options[:config] if options[:config]
-      config_store.force_default_config! if options[:force_default_config]
-
       @runner = RuboCop::Runner.new(options, config_store)
       @runner.run(paths)
       options[:stdin]
     end
 
-    def warnings
-      runner && runner.warnings
+    private
+
+    def config_store
+      return @config_store if @config_store
+
+      @config_store = RuboCop::ConfigStore.new
+      @config_store.options_config = options[:config] if options[:config]
+      @config_store.force_default_config! if options[:force_default_config]
+      @config_store
     end
 
-    def errors
-      runner && runner.errors
+    def options
+      return @options if @options
+
+      set_options_and_paths
+      @options
+    end
+
+    def paths
+      return @paths if @paths
+
+      set_options_and_paths
+      @paths
+    end
+
+    def set_options_and_paths
+      argv = RUBOCOP_ARGV + [@path || 'fake.rb']
+      @options, @paths = RuboCop::Options.new.parse(argv)
+      @options[:stdin] = source
+
+      [@options, @paths]
     end
   end
 end

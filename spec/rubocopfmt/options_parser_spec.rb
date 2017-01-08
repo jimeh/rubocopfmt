@@ -11,14 +11,14 @@ module RuboCopFMT
         expect(args).to eq(['--diff', '-l', 'foo.rb'])
       end
 
-      describe 'files option' do
+      describe 'paths option' do
         describe 'is set based on addtional arguments' do
           it 'when given a single additional argument' do
             args = ['--diff', '-l', 'foo.rb']
 
             options = OptionsParser.parse(args)
 
-            expect(options.files).to eq(['foo.rb'])
+            expect(options.paths).to eq(['foo.rb'])
           end
 
           it 'when given multiple additional arguments' do
@@ -26,7 +26,7 @@ module RuboCopFMT
 
             options = OptionsParser.parse(args)
 
-            expect(options.files).to eq(['foo.rb', 'bar.rb', 'Gemfile'])
+            expect(options.paths).to eq(['foo.rb', 'bar.rb', 'Gemfile'])
           end
         end
       end

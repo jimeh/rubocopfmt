@@ -2,10 +2,10 @@ require 'rubocopfmt/options_parser'
 
 module RuboCopFMT
   class Options
-    def files
-      @files.nil? ? [] : @files
+    def paths
+      @paths.nil? ? [] : @paths
     end
-    attr_writer :files
+    attr_writer :paths
 
     def diff
       @diff.nil? ? false : @diff

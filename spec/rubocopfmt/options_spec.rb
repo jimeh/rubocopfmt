@@ -2,19 +2,19 @@ require 'spec_helper'
 
 module RuboCopFMT
   RSpec.describe Options do
-    describe 'files option' do
+    describe 'paths option' do
       it 'reader/writer methods' do
         options = Options.new
 
-        options.files = ['foo.rb']
+        options.paths = ['foo.rb']
 
-        expect(options.files).to eq(['foo.rb'])
+        expect(options.paths).to eq(['foo.rb'])
       end
 
       it 'defaults to empty Array' do
         options = Options.new
 
-        expect(options.files).to eq([])
+        expect(options.paths).to eq([])
       end
     end
 

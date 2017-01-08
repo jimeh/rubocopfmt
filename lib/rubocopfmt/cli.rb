@@ -37,7 +37,7 @@ module RuboCopFMT
     end
 
     def require_real_files(flag)
-      return unless @options.files.empty?
+      return unless @options.paths.empty?
 
       $stderr.puts "ERROR: To use #{flag} you must specify one or more files"
       exit 1
@@ -78,10 +78,10 @@ module RuboCopFMT
     def sources
       return @sources if @sources
 
-      if options.files.empty?
+      if options.paths.empty?
         @sources = [new_source_from_stdin]
       else
-        @sources = options.files.map do |path|
+        @sources = options.paths.map do |path|
           new_source_from_file(path)
         end
       end

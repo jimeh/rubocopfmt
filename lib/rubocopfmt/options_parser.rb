@@ -13,7 +13,7 @@ module RuboCopFMT
         options ||= Options.new
 
         parse_flags(args, options)
-        options.files = args unless args.empty?
+        options.paths = args unless args.empty?
 
         options
       end

@@ -5,7 +5,7 @@ RSpec.describe 'Integration: Show diff of corrections' do
   ['-d', '--diff'].each do |flag|
     it "Show diff of corrections for STDIN source when passed #{flag} flag" do
       input = get_fixture(:basic3_input)
-      diff = get_fixture('basic3.diff').strip
+      diff = get_fixture('basic3.unified.diff').strip
 
       out, s = Open3.capture2("#{fmt_bin} #{flag}", stdin_data: input)
       lines = out.split("\n")
@@ -20,11 +20,11 @@ RSpec.describe 'Integration: Show diff of corrections' do
       examples = [
         {
           file: get_fixture_file(:basic3_input),
-          diff: get_fixture('basic3.diff').strip.split("\n")
+          diff: get_fixture('basic3.unified.diff').strip.split("\n")
         },
         {
           file: get_fixture_file(:basic1_input),
-          diff: get_fixture('basic1.diff').strip.split("\n")
+          diff: get_fixture('basic1.unified.diff').strip.split("\n")
         }
       ]
 

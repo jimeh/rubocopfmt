@@ -18,13 +18,14 @@ Usage: rubocopfmt [options] [path ...]
 Reads from STDIN if no path is given.
 
 Options:
-  -d, --diff              Display diffs instead of rewriting files.
-  -l, --list              List files whose formatting is incorrect.
-  -w, --write             Write result to (source) file instead of STDOUT.
-  -f, --stdin-file=<s>    Optionally provide file path when using STDIN.
+  -d, --diff               Display diffs instead of rewriting files.
+  -l, --list               List files whose formatting is incorrect.
+  -w, --write              Write result to (source) file instead of STDOUT.
+  -F, --stdin-file=<s>     Optionally provide file path when using STDIN.
+  -D, --diff-format=<s>    Display diffs using format: unified, rcs, context
 
-  -v, --version           Print version and exit
-  -h, --help              Show this message
+  -v, --version            Print version and exit
+  -h, --help               Show this message
 ```
 
 ## Configure

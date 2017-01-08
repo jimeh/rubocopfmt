@@ -33,7 +33,7 @@ RSpec.describe 'Integration: Load .rubocop.yml relative to source file' do
     expect(s.exitstatus).to eq(0)
   end
 
-  it 'correction respects settings in .rubocop.yml via STDIN and -f option' do
+  it 'correction respects settings in .rubocop.yml via STDIN and -F option' do
     input_file = File.expand_path(
       '../load_rubocop_yml_relative_to_source_file/input.rb', __FILE__
     )
@@ -42,7 +42,7 @@ RSpec.describe 'Integration: Load .rubocop.yml relative to source file' do
     )
 
     out, s = Open3.capture2(
-      "#{fmt_bin} -f \"#{output_file}\"",
+      "#{fmt_bin} -F \"#{output_file}\"",
       stdin_data: File.read(input_file, mode: 'rb')
     )
 

@@ -37,7 +37,7 @@ module RuboCopFMT
           opt :list, 'List files whose formatting is incorrect.'
           opt :write, 'Write result to (source) file instead of STDOUT.'
           opt :stdin_file, 'Optionally provide file path when using STDIN.',
-              short: 'f', type: :string
+              short: 'F', type: :string
           banner ''
 
           conflicts :diff, :list, :write

@@ -94,10 +94,10 @@ module RuboCopFMT
           expect(options.stdin_file).to eq('foo.rb')
         end
 
-        it '-f' do
+        it '-F' do
           options = Options.new
 
-          OptionsParser.parse(['-f', 'foo.rb'], options)
+          OptionsParser.parse(['-F', 'foo.rb'], options)
 
           expect(options.stdin_file).to eq('foo.rb')
         end

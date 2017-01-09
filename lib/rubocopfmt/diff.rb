@@ -8,7 +8,7 @@ module RuboCopFMT
       context: '-C 3'
     }.freeze
 
-    DEFAULT_FORMAT = :unified
+    DEFAULT_FORMAT = FORMATS[:unified]
 
     attr_reader :source
 
@@ -33,8 +33,7 @@ module RuboCopFMT
     private
 
     def diff_opts(format = nil)
-      return FORMATS[format.downcase.to_sym] if format
-      FORMATS[DEFAULT_FORMAT]
+      format ? FORMATS[format.downcase.to_sym] : DEFAULT_FORMAT
     end
   end
 end

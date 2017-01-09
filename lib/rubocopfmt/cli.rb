@@ -48,7 +48,9 @@ module RuboCopFMT
 
     def print_diff_of_corrections
       for_corrected_source do |source|
-        puts "diff #{source.path} rubocopfmt/#{source.path}" if source.path
+        if source.path && sources.size > 1
+          puts "diff #{source.path} rubocopfmt/#{source.path}"
+        end
         puts diff_source(source)
       end
     end

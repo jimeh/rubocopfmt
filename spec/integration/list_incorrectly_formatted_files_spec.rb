@@ -53,9 +53,11 @@ RSpec.describe 'Integration: List incorrectly formatted files' do
 
     out, err, s = Open3.capture3("#{fmt_bin} -l", stdin_data: input1)
 
-    expect(s.exitstatus).to eq(1)
+    expect(s.exitstatus).to eq(255)
     expect(out).to eq('')
-    expect(err)
-      .to eq("ERROR: To use --list you must specify one or more files\n")
+    expect(err).to eq(
+      "Error: argument --list requires one or more paths to be specified.\n" \
+      "Try --help for help.\n"
+    )
   end
 end

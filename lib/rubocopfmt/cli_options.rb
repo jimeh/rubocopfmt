@@ -6,22 +6,25 @@ require 'rubocopfmt/options'
 require 'rubocopfmt/version'
 
 module RuboCopFMT
-  class OptionsParser
+  class CLIOptions
     class << self
-      def parse(args, options = nil)
+      def parse(args)
         args = args.clone
-        options ||= Options.new
 
-        parse_flags(args, options)
-        options.paths = args unless args.empty?
+        opts = parse_args(args)
+        opts[:paths] = args
+        opts[:diff] = true if opts[:diff_format] && !opts[:diff]
 
-        options
+        validate_diff_format(opts)
+        validate_paths(opts)
+
+        opts
       end
 
       private
 
-      def parse_flags(args, options)
-        opts = Trollop.options(args) do
+      def parse_args(args)
+        Trollop.options(args) do
           banner <<-EOF.undent
             Usage: rubocopfmt [options] [path ...]
 
@@ -30,8 +33,8 @@ module RuboCopFMT
             Options:
           EOF
 
-          version "rubocopfmt #{RuboCopFMT::VERSION}" \
-                  " (rubocop #{RuboCop::Version::STRING})"
+          version "rubocopfmt #{RuboCopFMT::VERSION} " \
+                  "(rubocop #{::RuboCop::Version::STRING})"
 
           opt :diff, 'Display diffs instead of rewriting files.'
           opt :list, 'List files whose formatting is incorrect.'
@@ -45,19 +48,22 @@ module RuboCopFMT
           conflicts :diff, :list, :write
           conflicts :diff_format, :list, :write
         end
+      end
 
-        if opts[:diff_format] && !Diff.valid_format?(opts[:diff_format])
-          Trollop.die :diff_format,
-                      "does not support \"#{opts[:diff_format]}\" format"
+      def validate_paths(opts)
+        [:list, :write].each do |opt|
+          if opts[opt] && opts[:paths].empty?
+            Trollop.die(opt, 'requires one or more paths to be specified')
+          end
         end
+      end
 
-        opts[:diff] = true if opts[:diff_format] && !opts[:diff]
+      def validate_diff_format(opts)
+        return if opts[:diff_format].nil? \
+                  || Diff.valid_format?(opts[:diff_format])
 
-        opts.each do |k, v|
-          options.send("#{k}=", v) if options.respond_to?("#{k}=")
-        end
-
-        options
+        Trollop.die(:diff_format,
+                    "does not support \"#{opts[:diff_format]}\" format")
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'rubocop'
 
-require 'rubocopfmt/formatter'
+require 'rubocopfmt/rubocop_formatter'
 
 module RuboCopFMT
   class AutoCorrector
@@ -13,7 +13,7 @@ module RuboCopFMT
     RUBOCOP_ARGV = [
       '--auto-correct',
       '--cache', 'false',
-      '--format', 'RuboCopFMT::Formatter',
+      '--format', 'RuboCopFMT::RubocopFormatter',
       '--except', DISABLED_COPS.join(',')
     ].freeze
 
@@ -27,7 +27,7 @@ module RuboCopFMT
 
     def correct
       Rainbow.enabled = false if defined?(Rainbow)
-      @runner = RuboCop::Runner.new(options, config_store)
+      @runner = ::RuboCop::Runner.new(options, config_store)
       @runner.run(paths)
       options[:stdin]
     end
@@ -37,7 +37,7 @@ module RuboCopFMT
     def config_store
       return @config_store if @config_store
 
-      @config_store = RuboCop::ConfigStore.new
+      @config_store = ::RuboCop::ConfigStore.new
       @config_store.options_config = options[:config] if options[:config]
       @config_store.force_default_config! if options[:force_default_config]
       @config_store
@@ -59,7 +59,7 @@ module RuboCopFMT
 
     def set_options_and_paths
       argv = RUBOCOP_ARGV + [@path || 'fake.rb']
-      @options, @paths = RuboCop::Options.new.parse(argv)
+      @options, @paths = ::RuboCop::Options.new.parse(argv)
       @options[:stdin] = source
 
       [@options, @paths]

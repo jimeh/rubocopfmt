@@ -44,14 +44,16 @@ RSpec.describe 'Integration: Write corrected source to disk' do
     end
   end
 
-  it 'prints error to STDERR and returns 1 when not given any file paths' do
+  it 'prints error to STDERR and returns 255 when not given any file paths' do
     input1 = get_fixture(:basic1_input)
 
     out, err, s = Open3.capture3("#{fmt_bin} -w", stdin_data: input1)
 
-    expect(s.exitstatus).to eq(1)
+    expect(s.exitstatus).to eq(255)
     expect(out).to eq('')
-    expect(err)
-      .to eq("ERROR: To use --write you must specify one or more files\n")
+    expect(err).to eq(
+      "Error: argument --write requires one or more paths to be specified.\n" \
+      "Try --help for help.\n"
+    )
   end
 end

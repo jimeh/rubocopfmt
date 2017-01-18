@@ -3,7 +3,7 @@ require 'open3'
 
 RSpec.describe 'Integration: Show diff of corrections' do
   ['-d', '--diff'].each do |flag|
-    it "Show diff of corrections for STDIN source when passed #{flag} flag" do
+    it "for STDIN source when passed #{flag} flag" do
       input = get_fixture(:basic3_input)
       diff = get_fixture('basic3.unified.diff').strip
 
@@ -16,7 +16,7 @@ RSpec.describe 'Integration: Show diff of corrections' do
       expect(lines[2..-1].join("\n")).to eq(diff)
     end
 
-    it "Show diff of corrections for file paths when passed #{flag} flag" do
+    it "for file paths when passed #{flag} flag" do
       examples = [
         {
           file: get_fixture_file(:basic3_input),
@@ -50,7 +50,7 @@ RSpec.describe 'Integration: Show diff of corrections' do
   end
 
   ['-D', '--diff-format'].each do |flag|
-    it "Supports outputting diffs in Unified format using #{flag} flag" do
+    it "in Unified format using #{flag} flag" do
       input = get_fixture(:basic3_input)
       diff = get_fixture('basic3.unified.diff').strip
 
@@ -63,7 +63,7 @@ RSpec.describe 'Integration: Show diff of corrections' do
       expect(lines[2..-1].join("\n")).to eq(diff)
     end
 
-    it "Supports outputting diffs in RCS format using #{flag} flag" do
+    it "in RCS format using #{flag} flag" do
       input = get_fixture(:basic3_input)
       diff = get_fixture('basic3.rcs.diff')
 
@@ -75,7 +75,7 @@ RSpec.describe 'Integration: Show diff of corrections' do
   end
 
   ['-D', '--diff-format'].each do |flag|
-    it "Supports outputting diffs in Context format using #{flag} flag" do
+    it "in Context format using #{flag} flag" do
       input = get_fixture(:basic3_input)
       diff = get_fixture('basic3.context.diff').strip
 

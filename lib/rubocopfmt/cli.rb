@@ -1,7 +1,7 @@
 require 'rubocopfmt/diff'
 require 'rubocopfmt/errors'
-require 'rubocopfmt/options_parser'
-require 'rubocopfmt/source'
+require 'rubocopfmt/cli_options'
+require 'rubocopfmt/formatter'
 
 module RuboCopFMT
   class CLI
@@ -10,12 +10,17 @@ module RuboCopFMT
     end
 
     attr_reader :options
+    attr_reader :sources
 
     def initialize(args)
-      @options = OptionsParser.parse(args)
+      @options = CLIOptions.parse(args)
     end
 
     def run
+      runner = Formatter.new(options)
+      runner.run
+      @sources = runner.sources
+
       if @options.list
         print_corrected_list
       elsif @options.diff
@@ -31,23 +36,16 @@ module RuboCopFMT
 
     private
 
-    def require_real_files(flag)
-      return unless @options.paths.empty?
-
-      $stderr.puts "ERROR: To use #{flag} you must specify one or more files"
-      exit 1
-    end
-
     def print_corrected_list
-      require_real_files('--list')
-
-      for_corrected_source do |source|
-        puts source.path
+      sources.each do |source|
+        puts source.path if source.corrected?
       end
     end
 
     def print_diff_of_corrections
-      for_corrected_source do |source|
+      sources.each do |source|
+        next unless source.corrected?
+
         if source.path && sources.size > 1
           puts "diff #{source.path} rubocopfmt/#{source.path}"
         end
@@ -56,54 +54,20 @@ module RuboCopFMT
     end
 
     def write_corrected_source
-      require_real_files('--write')
-
-      for_corrected_source do |source|
-        File.write(source.path, source.output)
+      sources.each do |source|
+        File.write(source.path, source.output) if source.corrected?
       end
     end
 
     def print_corrected_source
-      for_corrected_source(skip_unchanged: false) do |source|
-        print source.output
-      end
-    end
-
-    def sources
-      return @sources if @sources
-
-      if options.paths.empty?
-        @sources = [new_source_from_stdin(options.stdin_file)]
-      else
-        @sources = options.paths.map do |path|
-          new_source_from_file(path)
-        end
-      end
-    end
-
-    def for_corrected_source(skip_unchanged: true)
       sources.each do |source|
-        source.auto_correct
-        next if skip_unchanged && !source.corrected?
-
-        yield(source)
+        print source.output
       end
     end
 
     def diff_source(source)
       diff = Diff.new(source)
       diff.render(options.diff_format)
-    end
-
-    def new_source_from_stdin(path = nil)
-      Source.new($stdin.binmode.read, path)
-    end
-
-    def new_source_from_file(path)
-      raise FileNotFound, "File not found: #{path}" unless File.exist?(path)
-
-      source = File.read(path, mode: 'rb')
-      Source.new(source, path)
     end
   end
 end

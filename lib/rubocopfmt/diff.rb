@@ -27,10 +27,16 @@ module RuboCopFMT
         diff: diff_opts(format)
       )
 
-      diff.to_s(:text)
+      out = diff.to_s(:text)
+      out << "\n" if rcs?(format)
+      out
     end
 
     private
+
+    def rcs?(format)
+      diff_opts(format) == FORMATS[:rcs]
+    end
 
     def diff_opts(format = nil)
       format ? FORMATS[format.downcase.to_sym] : DEFAULT_FORMAT

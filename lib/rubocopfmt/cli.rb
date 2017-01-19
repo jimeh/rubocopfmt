@@ -17,9 +17,9 @@ module RuboCopFMT
     end
 
     def run
-      runner = Formatter.new(options)
-      runner.run
-      @sources = runner.sources
+      formatter = Formatter.new(options)
+      formatter.run
+      @sources = formatter.sources
 
       if @options.list
         print_corrected_list

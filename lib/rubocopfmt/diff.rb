@@ -32,10 +32,6 @@ module RuboCopFMT
 
     private
 
-    def rcs?(format)
-      diff_opts(format) == FORMATS[:rcs]
-    end
-
     def diff_opts(format = nil)
       format ? FORMATS[format.downcase.to_sym] : DEFAULT_FORMAT
     end

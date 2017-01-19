@@ -27,9 +27,7 @@ module RuboCopFMT
         diff: diff_opts(format)
       )
 
-      out = diff.to_s(:text)
-      out << "\n" if rcs?(format)
-      out
+      diff.diff
     end
 
     private

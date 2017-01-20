@@ -1,3 +1,3 @@
 module RuboCopFMT
-  VERSION = '0.1.0.beta8'.freeze
+  VERSION = '0.1.0.beta9'.freeze
 end

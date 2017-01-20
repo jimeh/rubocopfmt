@@ -9,10 +9,10 @@ RSpec.describe 'Integration: Help output' do
       Reads from STDIN if no path is given.
 
       Options:
-        -d, --diff               Display diffs instead of rewriting files.
-        -l, --list               List files whose formatting is incorrect.
-        -w, --write              Write result to (source) file instead of STDOUT.
-        -F, --stdin-file=<s>     Optionally provide file path when using STDIN.
+        -d, --diff               Display diffs instead of rewriting files
+        -l, --list               List files whose formatting is incorrect
+        -w, --write              Write result to (source) file instead of STDOUT
+        -S, --src-dir=<s>        Operate as if code resides in specified directory
         -D, --diff-format=<s>    Display diffs using format: unified, rcs, context
 
         -v, --version            Print version and exit

@@ -1,6 +1,6 @@
 module RuboCopFMT
   class Options
-    attr_accessor :stdin_file
+    attr_accessor :src_dir
     attr_accessor :diff_format
 
     def paths

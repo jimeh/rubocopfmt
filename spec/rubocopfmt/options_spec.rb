@@ -82,19 +82,19 @@ module RuboCopFMT
       end
     end
 
-    describe 'stdin_file option' do
+    describe 'src_dir option' do
       it 'reader/writer methods' do
         options = Options.new
 
-        options.stdin_file = 'foo.rb'
+        options.src_dir = 'lib/my_awesome_thing'
 
-        expect(options.stdin_file).to eq('foo.rb')
+        expect(options.src_dir).to eq('lib/my_awesome_thing')
       end
 
       it 'defaults to nil' do
         options = Options.new
 
-        expect(options.stdin_file).to eq(nil)
+        expect(options.src_dir).to eq(nil)
       end
     end
   end

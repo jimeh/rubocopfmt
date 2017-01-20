@@ -33,14 +33,14 @@ module RuboCopFMT
             Options:
           EOF
 
-          version "rubocopfmt #{RuboCopFMT::VERSION} " \
-                  "(rubocop #{::RuboCop::Version::STRING})"
+          version "rubocopfmt #{RuboCopFMT::VERSION}" \
+                  " (rubocop #{::RuboCop::Version::STRING})"
 
-          opt :diff, 'Display diffs instead of rewriting files.'
-          opt :list, 'List files whose formatting is incorrect.'
-          opt :write, 'Write result to (source) file instead of STDOUT.'
-          opt :stdin_file, 'Optionally provide file path when using STDIN.',
-              short: 'F', type: :string
+          opt :diff, 'Display diffs instead of rewriting files'
+          opt :list, 'List files whose formatting is incorrect'
+          opt :write, 'Write result to (source) file instead of STDOUT'
+          opt :src_dir, 'Operate as if code resides in specified directory',
+              short: 'S', type: :string
           opt :diff_format, 'Display diffs using format: unified, rcs, context',
               short: 'D', type: :string
           banner ''

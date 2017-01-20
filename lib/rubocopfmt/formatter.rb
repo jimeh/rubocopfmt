@@ -27,7 +27,7 @@ module RuboCopFMT
 
     def build_sources
       if options.paths.empty?
-        [new_source_from_stdin(options.stdin_file)]
+        [new_source_from_stdin]
       else
         options.paths.map do |path|
           new_source_from_file(path)
@@ -35,15 +35,15 @@ module RuboCopFMT
       end
     end
 
-    def new_source_from_stdin(path = nil)
-      Source.new($stdin.binmode.read, path)
+    def new_source_from_stdin
+      Source.new($stdin.binmode.read, nil, options.src_dir)
     end
 
     def new_source_from_file(path)
       raise FileNotFound, "File not found: #{path}" unless File.exist?(path)
 
       source = File.read(path, mode: 'rb')
-      Source.new(source, path)
+      Source.new(source, path, options.src_dir)
     end
   end
 end

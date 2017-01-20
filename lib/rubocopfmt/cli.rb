@@ -17,15 +17,13 @@ module RuboCopFMT
     end
 
     def run
-      formatter = Formatter.new(options)
-      formatter.run
-      @sources = formatter.sources
+      format_sources
 
-      if @options.list
+      if options.list
         print_corrected_list
-      elsif @options.diff
+      elsif options.diff
         print_diff_of_corrections
-      elsif @options.write
+      elsif options.write
         write_corrected_source
       else
         print_corrected_source
@@ -35,6 +33,12 @@ module RuboCopFMT
     end
 
     private
+
+    def format_sources
+      formatter = Formatter.new(options)
+      formatter.run
+      @sources = formatter.sources
+    end
 
     def print_corrected_list
       sources.each do |source|
@@ -49,7 +53,7 @@ module RuboCopFMT
         if source.path && sources.size > 1
           puts "diff #{source.path} rubocopfmt/#{source.path}"
         end
-        puts diff_source(source)
+        puts Diff.render(source, options.diff_format)
       end
     end
 
@@ -63,11 +67,6 @@ module RuboCopFMT
       sources.each do |source|
         print source.output
       end
-    end
-
-    def diff_source(source)
-      diff = Diff.new(source)
-      diff.render(options.diff_format)
     end
   end
 end

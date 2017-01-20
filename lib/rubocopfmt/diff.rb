@@ -12,6 +12,10 @@ module RuboCopFMT
 
     attr_reader :source
 
+    def self.render(source, format = nil)
+      new(source).render(format)
+    end
+
     def self.valid_format?(format)
       FORMATS.key?(format.downcase.to_sym)
     end

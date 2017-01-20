@@ -97,5 +97,21 @@ module RuboCopFMT
         expect(options.src_dir).to eq(nil)
       end
     end
+
+    describe 'input option' do
+      it 'reader/writer methods' do
+        options = Options.new
+
+        options.input = 'puts "hello world"'
+
+        expect(options.input).to eq('puts "hello world"')
+      end
+
+      it 'defaults to nil' do
+        options = Options.new
+
+        expect(options.input).to eq(nil)
+      end
+    end
   end
 end

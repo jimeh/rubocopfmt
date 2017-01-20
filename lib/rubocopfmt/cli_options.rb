@@ -18,13 +18,20 @@ module RuboCopFMT
         validate_diff_format(opts)
         validate_paths(opts)
 
+        opts[:input] = read_stdin if opts[:paths].empty?
         opts
       end
 
       private
 
       def parse_args(args)
-        Trollop.options(args) do
+        Trollop.with_standard_exception_handling(parser) do
+          parser.parse(args)
+        end
+      end
+
+      def parser
+        @parser ||= Trollop::Parser.new do
           banner <<-EOF.undent
             Usage: rubocopfmt [options] [path ...]
 
@@ -50,10 +57,23 @@ module RuboCopFMT
         end
       end
 
+      def read_stdin
+        tries = 0
+        begin
+          str = $stdin.binmode.read_nonblock(1)
+        rescue IO::WaitReadable, EOFError
+          IO.select([$stdin.binmode], nil, nil, 0.2)
+          retry if (tries += 1) <= 1
+        end
+
+        parser.die('Failed to read from STDIN', nil) if str.nil?
+        str + $stdin.binmode.read
+      end
+
       def validate_paths(opts)
         [:list, :write].each do |opt|
           if opts[opt] && opts[:paths].empty?
-            Trollop.die(opt, 'requires one or more paths to be specified')
+            parser.die(opt, 'requires one or more paths to be specified')
           end
         end
       end
@@ -62,8 +82,10 @@ module RuboCopFMT
         return if opts[:diff_format].nil? \
                   || Diff.valid_format?(opts[:diff_format])
 
-        Trollop.die(:diff_format,
-                    "does not support \"#{opts[:diff_format]}\" format")
+        parser.die(
+          :diff_format,
+          "does not support \"#{opts[:diff_format]}\" format"
+        )
       end
     end
   end

@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'byebug'
 
-  spec.add_runtime_dependency 'rubocop', '~> 0.46'
+  spec.add_runtime_dependency 'rubocop', '~> 0.47'
   spec.add_runtime_dependency 'trollop', '~> 2.1'
   spec.add_runtime_dependency 'diffy', '~> 3.1'
 end

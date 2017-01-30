@@ -4,6 +4,9 @@ Easy formatting of Ruby code
 using [RuboCop](https://github.com/bbatsov/rubocop). Analogous
 to [`gofmt`](https://golang.org/cmd/gofmt/).
 
+Currently the main focus is to provide a simple way to format Ruby code on save
+in various editors. As such the feature set is very minimal for the time being.
+
 ## Installation
 
 ```
@@ -21,6 +24,7 @@ Options:
   -d, --diff               Display diffs instead of rewriting files
   -l, --list               List files whose formatting is incorrect
   -w, --write              Write result to (source) file instead of STDOUT
+  -i, --interactive        Disable cops that cause confusion in text editors
   -S, --src-dir=<s>        Operate as if code resides in specified directory
   -D, --diff-format=<s>    Display diffs using format: unified, rcs, context
 
@@ -35,7 +39,25 @@ RuboCop's [Documentation](http://rubocop.readthedocs.io/en/latest/).
 
 ## Editor Integration
 
-_Coming Soon!_
+- Emacs: https://github.com/jimeh/rubocopfmt-emacs
+- _More coming soon!_
+
+## Interactive Mode
+
+When called from an editor on save, there's a few of Cops that causes
+confusion when run against half-finished code. Interactive mode disables those
+cops and should be used by all editor plugins.
+
+Cops disabled in Interactive mode:
+
+- `Lint/Debugger`: Removes `debugger` statements. Not helpful when you need to
+  debug something.
+- `Lint/UnusedBlockArgument`: Don't prefix unused block variable names with
+  `_`. This causes issues if you save after defining a block, but before you use
+  all arguments of the block.
+- `Lint/UnusedMethodArgument`: Don't prefix unused method variable names with
+  `_`. This causes issues if you save after defining a method, but before you
+  use all arguments of the method.
 
 ## Todo
 

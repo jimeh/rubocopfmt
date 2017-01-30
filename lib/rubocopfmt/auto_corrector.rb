@@ -4,12 +4,6 @@ require 'rubocopfmt/rubocop_formatter'
 
 module RuboCopFMT
   class AutoCorrector
-    BAD_INTERACTIVE_COPS = [
-      'Lint/Debugger',
-      'Lint/UnusedBlockArgument',
-      'Lint/UnusedMethodArgument'
-    ].freeze
-
     attr_reader :input
     attr_reader :runner
 
@@ -22,7 +16,7 @@ module RuboCopFMT
       Rainbow.enabled = false if defined?(Rainbow)
 
       options = default_options.clone
-      options[:except] = BAD_INTERACTIVE_COPS if interactive
+      options[:except] = bad_interactive_cops if interactive
 
       @runner = ::RuboCop::Runner.new(options, ::RuboCop::ConfigStore.new)
       @runner.run(paths)
@@ -43,6 +37,14 @@ module RuboCopFMT
         cache: 'false',
         formatters: [['RuboCopFMT::RubocopFormatter']]
       }
+    end
+
+    def bad_interactive_cops
+      [
+        'Lint/Debugger',
+        'Lint/UnusedBlockArgument',
+        'Lint/UnusedMethodArgument'
+      ]
     end
   end
 end

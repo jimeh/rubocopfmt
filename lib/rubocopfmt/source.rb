@@ -13,11 +13,11 @@ module RuboCopFMT
       @src_dir = src_dir
     end
 
-    def auto_correct
+    def auto_correct(interactive = false)
       return unless output.nil?
 
       @corrector = AutoCorrector.new(input, full_path)
-      @output = @corrector.correct
+      @output = @corrector.correct(interactive)
     end
 
     def corrected?

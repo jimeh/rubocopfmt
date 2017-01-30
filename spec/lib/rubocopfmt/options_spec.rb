@@ -2,6 +2,54 @@ require 'spec_helper'
 
 module RuboCopFMT
   RSpec.describe Options do
+    describe 'input option' do
+      it 'reader/writer methods' do
+        options = Options.new
+
+        options.input = 'puts "hello world"'
+
+        expect(options.input).to eq('puts "hello world"')
+      end
+
+      it 'defaults to nil' do
+        options = Options.new
+
+        expect(options.input).to eq(nil)
+      end
+    end
+
+    describe 'src_dir option' do
+      it 'reader/writer methods' do
+        options = Options.new
+
+        options.src_dir = 'lib/my_awesome_thing'
+
+        expect(options.src_dir).to eq('lib/my_awesome_thing')
+      end
+
+      it 'defaults to nil' do
+        options = Options.new
+
+        expect(options.src_dir).to eq(nil)
+      end
+    end
+
+    describe 'diff_format option' do
+      it 'reader/writer methods' do
+        options = Options.new
+
+        options.diff_format = 'rcs'
+
+        expect(options.diff_format).to eq('rcs')
+      end
+
+      it 'defaults to nil' do
+        options = Options.new
+
+        expect(options.diff_format).to eq(nil)
+      end
+    end
+
     describe 'paths option' do
       it 'reader/writer methods' do
         options = Options.new
@@ -31,22 +79,6 @@ module RuboCopFMT
         options = Options.new
 
         expect(options.diff).to eq(false)
-      end
-    end
-
-    describe 'diff_format option' do
-      it 'reader/writer methods' do
-        options = Options.new
-
-        options.diff_format = 'rcs'
-
-        expect(options.diff_format).to eq('rcs')
-      end
-
-      it 'defaults to nil' do
-        options = Options.new
-
-        expect(options.diff_format).to eq(nil)
       end
     end
 
@@ -82,35 +114,19 @@ module RuboCopFMT
       end
     end
 
-    describe 'src_dir option' do
-      it 'reader/writer methods' do
+    describe 'interactive option' do
+      it 'reader/interactiver methods' do
         options = Options.new
 
-        options.src_dir = 'lib/my_awesome_thing'
+        options.interactive = true
 
-        expect(options.src_dir).to eq('lib/my_awesome_thing')
+        expect(options.interactive).to eq(true)
       end
 
-      it 'defaults to nil' do
+      it 'defaults to false' do
         options = Options.new
 
-        expect(options.src_dir).to eq(nil)
-      end
-    end
-
-    describe 'input option' do
-      it 'reader/writer methods' do
-        options = Options.new
-
-        options.input = 'puts "hello world"'
-
-        expect(options.input).to eq('puts "hello world"')
-      end
-
-      it 'defaults to nil' do
-        options = Options.new
-
-        expect(options.input).to eq(nil)
+        expect(options.interactive).to eq(false)
       end
     end
   end

@@ -23,5 +23,10 @@ module RuboCopFMT
       @write.nil? ? false : @write
     end
     attr_writer :write
+
+    def interactive
+      @interactive.nil? ? false : @interactive
+    end
+    attr_writer :interactive
   end
 end

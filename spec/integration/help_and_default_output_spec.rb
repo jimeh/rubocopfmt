@@ -12,6 +12,7 @@ RSpec.describe 'Integration: Help and default output' do
         -d, --diff               Display diffs instead of rewriting files
         -l, --list               List files whose formatting is incorrect
         -w, --write              Write result to (source) file instead of STDOUT
+        -i, --interactive        Disable cops that cause confusion in text editors
         -S, --src-dir=<s>        Operate as if code resides in specified directory
         -D, --diff-format=<s>    Display diffs using format: unified, rcs, context
 

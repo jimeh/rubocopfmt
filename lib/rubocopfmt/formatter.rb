@@ -16,7 +16,7 @@ module RuboCopFMT
       sources = []
       sources << new_source_from_str(options.input) if options.input
       sources += options.paths.map { |path| new_source_from_file(path) }
-      sources.map(&:auto_correct)
+      sources.map { |s| s.auto_correct(options.interactive) }
 
       @sources = sources
     end

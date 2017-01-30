@@ -4,6 +4,12 @@ require 'rubocopfmt/rubocop_formatter'
 
 module RuboCopFMT
   class AutoCorrector
+    BAD_INTERACTIVE_COPS = [
+      'Lint/Debugger',
+      'Lint/UnusedMethodArgument',
+      'Lint/UnusedBlockArgument'
+    ].freeze
+
     attr_reader :input
     attr_reader :runner
 
@@ -12,10 +18,13 @@ module RuboCopFMT
       @path = path
     end
 
-    def correct
+    def correct(interactive = false)
       Rainbow.enabled = false if defined?(Rainbow)
 
-      @runner = ::RuboCop::Runner.new(options, config_store)
+      options = default_options.clone
+      options[:except] = BAD_INTERACTIVE_COPS if interactive
+
+      @runner = ::RuboCop::Runner.new(options, ::RuboCop::ConfigStore.new)
       @runner.run(paths)
 
       options[:stdin]
@@ -24,34 +33,16 @@ module RuboCopFMT
     private
 
     def paths
-      @paths ||= [@path || 'fake.rb']
+      @paths ||= [@path || '__fake__.rb']
     end
 
-    def options
-      @options ||= {
+    def default_options
+      {
         stdin: @input,
         auto_correct: true,
         cache: 'false',
-        formatters: [['RuboCopFMT::RubocopFormatter']],
-        except: disabled_cops
+        formatters: [['RuboCopFMT::RubocopFormatter']]
       }
-    end
-
-    def disabled_cops
-      [
-        'Lint/Debugger',
-        'Lint/UnusedMethodArgument',
-        'Lint/UnusedBlockArgument'
-      ]
-    end
-
-    def config_store
-      return @config_store if @config_store
-
-      @config_store = ::RuboCop::ConfigStore.new
-      @config_store.options_config = options[:config] if options[:config]
-      @config_store.force_default_config! if options[:force_default_config]
-      @config_store
     end
   end
 end

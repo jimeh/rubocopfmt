@@ -17,7 +17,7 @@ module RuboCopFMT
     end
 
     def run
-      format_sources
+      @sources = format_sources
 
       if options.list
         print_corrected_list
@@ -37,7 +37,7 @@ module RuboCopFMT
     def format_sources
       formatter = Formatter.new(options)
       formatter.run
-      @sources = formatter.sources
+      formatter.sources
     end
 
     def print_corrected_list

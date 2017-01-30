@@ -6,8 +6,8 @@ module RuboCopFMT
   class AutoCorrector
     BAD_INTERACTIVE_COPS = [
       'Lint/Debugger',
-      'Lint/UnusedMethodArgument',
-      'Lint/UnusedBlockArgument'
+      'Lint/UnusedBlockArgument',
+      'Lint/UnusedMethodArgument'
     ].freeze
 
     attr_reader :input

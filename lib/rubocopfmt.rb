@@ -1,5 +1,10 @@
+require 'rubygems'
+require 'rubocopfmt/rubocop_version'
+
+gem 'rubocop', RuboCopFMT::RUBOCOP_VERSION
+require 'rubocop'
+
 require 'rubocopfmt/cli'
-require 'rubocopfmt/version'
 
 module RuboCopFMT
   # Your code goes here...

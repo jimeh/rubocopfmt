@@ -2,6 +2,7 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rubocopfmt/version'
+require 'rubocopfmt/rubocop_version'
 
 Gem::Specification.new do |spec|
   spec.name        = 'rubocopfmt'
@@ -25,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'byebug'
 
-  spec.add_runtime_dependency 'rubocop', '~> 0.47'
-  spec.add_runtime_dependency 'trollop', '~> 2.1'
-  spec.add_runtime_dependency 'diffy', '~> 3.1'
+  spec.add_runtime_dependency 'rubocop', RuboCopFMT::RUBOCOP_VERSION
+  spec.add_runtime_dependency 'trollop', '~> 2.1.0'
+  spec.add_runtime_dependency 'diffy', '~> 3.1.0'
 end

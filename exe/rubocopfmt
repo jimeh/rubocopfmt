@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift(File.expand_path('../../lib', File.realpath(__FILE__)))
-
 require 'rubocopfmt'
 
 result = RuboCopFMT::CLI.run(ARGV)
-
 exit result

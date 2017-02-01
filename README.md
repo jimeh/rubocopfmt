@@ -61,7 +61,7 @@ Cops disabled in Interactive mode:
 
 ## Todo
 
-- Editor integration!
+- More editor integrations!
 - "Stable" release
 - Improve tests
 

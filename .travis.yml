@@ -1,8 +1,20 @@
 sudo: false
 language: ruby
+env:
+  - RUBOCOP_VERSION=0.47.1
+  - RUBOCOP_VERSION=0.46.0
+  - RUBOCOP_VERSION=0.45.0
+  - RUBOCOP_VERSION=0.44.1
+  - RUBOCOP_VERSION=0.43.0
+  - RUBOCOP_VERSION=0.42.0
+  - RUBOCOP_VERSION=0.41.2
+  - RUBOCOP_VERSION=0.40.0
+  - RUBOCOP_VERSION=0.39.0
+  - RUBOCOP_VERSION=0.38.0
 rvm:
-  - 2.1
-  - 2.2
   - 2.3.3
   - 2.4.0
-before_install: gem install bundler; gem install rainbow -v '2.2.1'
+gemfile: Gemfile.ci
+before_install:
+  - gem install bundler
+  - gem install rainbow -v '2.2.1'

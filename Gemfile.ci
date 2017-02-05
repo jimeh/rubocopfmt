@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+rubocop_version = ENV['RUBOCOP_VERSION'].to_s
+rubocop_version = nil if rubocop_version.empty? || rubocop_version == 'latest'
+rubocop_version = { github: 'bbatsov/rubocop' } if rubocop_version == 'master'
+
+gem 'rubocop', rubocop_version
+
+# Specify your gem's dependencies in rubocopfmt.gemspec
+gemspec

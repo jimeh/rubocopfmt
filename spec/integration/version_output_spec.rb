@@ -3,7 +3,8 @@ require 'open3'
 
 RSpec.describe 'Integration: Version output' do
   let(:expected_version) do
-    "rubocopfmt #{RuboCopFMT::VERSION} (rubocop #{RuboCop::Version::STRING})\n"
+    "rubocopfmt #{RuboCopFMT::VERSION} " \
+      "(using rubocop #{RuboCop::Version::STRING})\n"
   end
 
   it 'prints version information when given -v flag' do

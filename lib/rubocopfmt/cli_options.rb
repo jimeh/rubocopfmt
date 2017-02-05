@@ -41,7 +41,7 @@ module RuboCopFMT
           EOF
 
           version "rubocopfmt #{RuboCopFMT::VERSION}" \
-                  " (rubocop #{::RuboCop::Version::STRING})"
+                  " (using rubocop #{::RuboCop::Version::STRING})"
 
           opt :diff, 'Display diffs instead of rewriting files'
           opt :list, 'List files whose formatting is incorrect'

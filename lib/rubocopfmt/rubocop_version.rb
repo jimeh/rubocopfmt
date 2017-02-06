@@ -10,6 +10,6 @@ module RuboCopFMT
     '!= 0.44.0',
 
     # Restrict to latest version tested.
-    '<= 0.48'
+    '< 0.48'
   ].freeze
 end

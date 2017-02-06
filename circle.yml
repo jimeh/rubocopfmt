@@ -1,0 +1,10 @@
+machine:
+  ruby:
+    version: 2.4.0
+dependencies:
+  pre:
+    - gem install bundler
+    - gem install rainbow -v '2.2.1'
+test:
+  override:
+    - RUBOCOP_VERSION=master BUNDLE_GEMFILE=Gemfile.ci bundle exec rspec --format documentation --color spec

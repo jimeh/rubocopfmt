@@ -1,7 +1,9 @@
 class Foo
   BAR = 'hello'.freeze
 
-  def initialize; end
+  def initialize
+    # does stuff
+  end
 
   def world
     [:foo, :bar].each_with_index do |sym, index|

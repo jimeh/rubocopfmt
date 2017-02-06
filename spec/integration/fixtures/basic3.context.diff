@@ -4,15 +4,15 @@
     BAR = 'hello'.freeze
   
 !   def initialize()
-!   end
+! 
+      # does stuff
+    end
   
-    def say_something_useful
-      puts 'nope'
 --- 1,7 ----
   class Foo
     BAR = 'hello'.freeze
   
-!   def initialize; end
+!   def initialize
+      # does stuff
+    end
   
-    def say_something_useful
-      puts 'nope'

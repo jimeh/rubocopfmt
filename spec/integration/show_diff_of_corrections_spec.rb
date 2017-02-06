@@ -5,7 +5,7 @@ RSpec.describe 'Integration: Show diff of corrections' do
   ['-d', '--diff'].each do |flag|
     it "for STDIN source when passed #{flag} flag" do
       input = get_fixture(:basic3_input)
-      diff = get_fixture('basic3.unified.diff').strip
+      diff = get_fixture('basic3.unified.diff')
 
       out, s = Open3.capture2("#{fmt_bin} #{flag}", stdin_data: input)
       lines = out.split("\n")
@@ -20,7 +20,7 @@ RSpec.describe 'Integration: Show diff of corrections' do
       examples = [
         {
           file: get_fixture_file(:basic3_input),
-          diff: get_fixture('basic3.unified.diff').strip.split("\n")
+          diff: get_fixture('basic3.unified.diff').split("\n")
         },
         {
           file: get_fixture_file(:basic1_input),
@@ -52,7 +52,7 @@ RSpec.describe 'Integration: Show diff of corrections' do
   ['-D', '--diff-format'].each do |flag|
     it "in Unified format using #{flag} flag" do
       input = get_fixture(:basic3_input)
-      diff = get_fixture('basic3.unified.diff').strip
+      diff = get_fixture('basic3.unified.diff')
 
       out, s = Open3.capture2("#{fmt_bin} #{flag} unified", stdin_data: input)
       lines = out.split("\n")
@@ -72,12 +72,10 @@ RSpec.describe 'Integration: Show diff of corrections' do
       expect(s.exitstatus).to eq(0)
       expect(out).to eq(diff)
     end
-  end
 
-  ['-D', '--diff-format'].each do |flag|
     it "in Context format using #{flag} flag" do
       input = get_fixture(:basic3_input)
-      diff = get_fixture('basic3.context.diff').strip
+      diff = get_fixture('basic3.context.diff')
 
       out, s = Open3.capture2("#{fmt_bin} #{flag} context", stdin_data: input)
       lines = out.split("\n")

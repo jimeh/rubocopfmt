@@ -2,6 +2,7 @@ class Foo
   BAR = 'hello'
 
   def initialize
+    # does stuff
   end
 
 

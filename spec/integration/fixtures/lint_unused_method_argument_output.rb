@@ -1,7 +1,9 @@
 class Foo
   BAR = 'hello'.freeze
 
-  def initialize; end
+  def initialize
+    # does stuff
+  end
 
   def world(_name)
     puts 'this is Middle Earth'

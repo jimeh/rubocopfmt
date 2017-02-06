@@ -1,9 +1,6 @@
 machine:
   ruby:
     version: 2.4.0
-test:
-  pre:
-    - gem install bundler
-    - gem install rainbow -v '2.2.1'
-  override:
-    - RUBOCOP_VERSION=master BUNDLE_GEMFILE=Gemfile.ci bundle exec rspec --format documentation --color spec
+  environment:
+    - BUNDLE_GEMFILE=Gemfile.ci
+    - RUBOCOP_VERSION=master

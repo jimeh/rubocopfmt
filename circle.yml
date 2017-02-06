@@ -1,6 +1,6 @@
 machine:
   ruby:
-    version: 2.4.0
+    version: 2.2
   environment:
     BUNDLE_GEMFILE: Gemfile.ci
     RUBOCOP_VERSION: master

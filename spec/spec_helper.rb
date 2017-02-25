@@ -25,3 +25,7 @@ end
 def fmt_bin
   File.expand_path('../../exe/rubocopfmt', __FILE__)
 end
+
+def rubocop_version?(version)
+  Gem::Dependency.new('', version).match?('', ::RuboCop::Version::STRING)
+end

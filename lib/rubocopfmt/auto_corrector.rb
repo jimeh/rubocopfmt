@@ -40,12 +40,16 @@ module RuboCopFMT
     end
 
     def bad_interactive_cops
-      [
-        'Lint/Debugger',
-        'Lint/UnusedBlockArgument',
-        'Lint/UnusedMethodArgument',
-        'Style/EmptyMethod'
-      ]
+      cops = []
+      cops << 'Lint/Debugger'
+      cops << 'Lint/UnusedBlockArgument'
+      cops << 'Lint/UnusedMethodArgument'
+      cops << 'Style/EmptyMethod' if rubocop_version?('>= 0.46.0')
+      cops
+    end
+
+    def rubocop_version?(version)
+      Gem::Dependency.new('', version).match?('', ::RuboCop::Version::STRING)
     end
   end
 end

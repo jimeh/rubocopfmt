@@ -15,8 +15,9 @@ Gem::Specification.new do |spec|
   spec.homepage    = 'https://github.com/jimeh/rubocopfmt'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features|Gemfile\.ci)/})
+    f.match(%r{^(test/|spec/|features/|Gemfile\.ci)})
   end
+
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']

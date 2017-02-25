@@ -43,7 +43,8 @@ module RuboCopFMT
       [
         'Lint/Debugger',
         'Lint/UnusedBlockArgument',
-        'Lint/UnusedMethodArgument'
+        'Lint/UnusedMethodArgument',
+        'Style/EmptyMethod'
       ]
     end
   end

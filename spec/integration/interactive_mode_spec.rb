@@ -32,6 +32,16 @@ RSpec.describe 'Integration: Interactive mode skips certain cops to avoid confus
       expect(out).to eq(output)
       expect(s.exitstatus).to eq(0)
     end
+
+    it "does not run Style/EmptyMethod cop when given #{flag} flag" do
+      input = get_fixture(:style_empty_method_input)
+      output = get_fixture(:style_empty_method_interactive_output)
+
+      out, s = Open3.capture2("#{fmt_bin} #{flag}", stdin_data: input)
+
+      expect(out).to eq(output)
+      expect(s.exitstatus).to eq(0)
+    end
   end
 
   it 'runs Lint/Debugger cop when not given --interactive / -i flag' do
@@ -57,6 +67,16 @@ RSpec.describe 'Integration: Interactive mode skips certain cops to avoid confus
   it 'runs Lint/UnusedBlockArgument cop when not given --interactive / -i flag' do
     input = get_fixture(:lint_unused_block_argument_input)
     output = get_fixture(:lint_unused_block_argument_output)
+
+    out, s = Open3.capture2(fmt_bin, stdin_data: input)
+
+    expect(out).to eq(output)
+    expect(s.exitstatus).to eq(0)
+  end
+
+  it 'runs Style/EmptyMethod cop when not given --interactive / -i flag' do
+    input = get_fixture(:style_empty_method_input)
+    output = get_fixture(:style_empty_method_output)
 
     out, s = Open3.capture2(fmt_bin, stdin_data: input)
 

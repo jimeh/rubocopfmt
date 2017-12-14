@@ -47,8 +47,8 @@ module RuboCopFMT
           opt :list, 'List files whose formatting is incorrect'
           opt :write, 'Write result to (source) file instead of STDOUT'
           opt :interactive, 'Disable cops that cause confusion in text editors'
-          opt :src_dir, 'Operate as if code resides in specified directory',
-              short: 'S', type: :string
+          opt :src_file, 'Specify filename when providing input via STDIN',
+              short: 'F', type: :string
           opt :diff_format, 'Display diffs using format: unified, rcs, context',
               short: 'D', type: :string
           banner ''
@@ -72,7 +72,7 @@ module RuboCopFMT
       end
 
       def validate_paths(opts)
-        [:list, :write].each do |opt|
+        %i[list write].each do |opt|
           if opts[opt] && opts[:paths].empty?
             parser.die(opt, 'requires one or more paths to be specified')
           end

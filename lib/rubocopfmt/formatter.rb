@@ -28,14 +28,14 @@ module RuboCopFMT
     private
 
     def new_source_from_str(str)
-      Source.new(str, nil, options.src_dir)
+      Source.new(str, options.src_file)
     end
 
     def new_source_from_file(path)
       raise FileNotFound, "File not found: #{path}" unless File.exist?(path)
 
       input = File.read(path, mode: 'rb')
-      Source.new(input, path, options.src_dir)
+      Source.new(input, path)
     end
   end
 end

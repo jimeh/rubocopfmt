@@ -15,10 +15,10 @@ RSpec.describe 'Integration: Manually specify source directory' do
     File.read(path, mode: 'rb')
   end
 
-  ['--src-dir', '-S'].each do |flag|
-    it "respects settings in .rubocop.yml via STDIN and source dir specified with #{flag} option" do
+  ['--src-file', '-F'].each do |flag|
+    it "respects settings in .rubocop.yml via STDIN and source file specified with #{flag} option" do
       out, s = Open3.capture2(
-        "#{fmt_bin} #{flag} \"#{File.dirname(input_file)}\"",
+        "#{fmt_bin} #{flag} \"#{input_file}\"",
         stdin_data: File.read(input_file, mode: 'rb')
       )
 
@@ -26,13 +26,13 @@ RSpec.describe 'Integration: Manually specify source directory' do
       expect(s.exitstatus).to eq(0)
     end
 
-    it "respects settings in .rubocop.yml via file and source dir specified with #{flag} option" do
+    it "respects settings in .rubocop.yml via file and source file specified with #{flag} option" do
       tmp = Tempfile.new('uglyruby')
       tmp.write(File.read(input_file, mode: 'rb'))
       tmp.close
 
       out, s = Open3.capture2(
-        "#{fmt_bin} #{flag} \"#{File.dirname(input_file)}\" \"#{tmp.path}\""
+        "#{fmt_bin} #{flag} \"#{input_file}\" \"#{tmp.path}\""
       )
 
       expect(out).to eq(expected_output)

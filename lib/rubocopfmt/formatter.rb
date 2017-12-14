@@ -35,7 +35,7 @@ module RuboCopFMT
       raise FileNotFound, "File not found: #{path}" unless File.exist?(path)
 
       input = File.read(path, mode: 'rb')
-      Source.new(input, path)
+      Source.new(input, path, options.src_file)
     end
   end
 end

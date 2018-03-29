@@ -1,4 +1,5 @@
 # rubocopfmt [![Gem Version](https://badge.fury.io/rb/rubocopfmt.svg)](https://badge.fury.io/rb/rubocopfmt) [![Build Status](https://api.travis-ci.org/jimeh/rubocopfmt.svg)](https://travis-ci.org/jimeh/rubocopfmt)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjimeh%2Frubocopfmt.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjimeh%2Frubocopfmt?ref=badge_shield)
 
 Easy formatting of Ruby code
 using [RuboCop](https://github.com/bbatsov/rubocop). Analogous
@@ -88,3 +89,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjimeh%2Frubocopfmt.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjimeh%2Frubocopfmt?ref=badge_large)

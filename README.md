@@ -1,4 +1,11 @@
+
 # rubocopfmt [![Gem Version](https://badge.fury.io/rb/rubocopfmt.svg)](https://badge.fury.io/rb/rubocopfmt) [![Build Status](https://api.travis-ci.org/jimeh/rubocopfmt.svg)](https://travis-ci.org/jimeh/rubocopfmt)
+
+## DEPRECATED!
+
+This project is no longer maintained. My focus has shifted towards [rubocopfmt.el](https://github.com/jimeh/rubocopfmt.el) for Emacs. There are no plans to support for other editors at this time.
+
+---
 
 Easy formatting of Ruby code
 using [RuboCop](https://github.com/bbatsov/rubocop). Analogous
@@ -39,7 +46,7 @@ RuboCop's [Documentation](http://rubocop.readthedocs.io/en/latest/).
 
 ## Editor Integration
 
-- Emacs: https://github.com/jimeh/rubocopfmt-emacs
+- Emacs: https://github.com/jimeh/rubocopfmt.el
 - _More coming soon!_
 
 ## Interactive Mode
@@ -58,12 +65,6 @@ Cops disabled in Interactive mode:
 - `Lint/UnusedMethodArgument`: Don't prefix unused method variable names with
   `_`. This causes issues if you save after defining a method, but before you
   use all arguments of the method.
-
-## Todo
-
-- More editor integrations!
-- "Stable" release
-- Improve tests
 
 ## License
 
